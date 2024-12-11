@@ -2,6 +2,7 @@ import Lottie from "lottie-react";
 import registerLottieData from '../assets/lottie/register.json'
 import { useContext, useState } from "react";
 import AuthContext from "../context/AuthContext";
+import SocialLogin from "./shared/SocialLOgin";
 
 
 const Register = () => {
@@ -66,6 +67,7 @@ const Register = () => {
                         </div>
                         {errorMessage && <p className="text-red-600 text-center mt-3">{errorMessage}</p>}
                     </form>
+                    <SocialLogin />
                 </div>
             </div>
         </div>
