@@ -1,15 +1,31 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext';
+import { useContext } from 'react';
+import logo from '../../assets/logo.png'
 
 const Navbar = () => {
+    const { user, signOutUser } = useContext(AuthContext);
 
+    const handleSignOut = () => {
+        signOutUser()
+            .then(() => {
+            console.log('successful sign out')
+            })
+            .catch(error => {
+            console.log('failed to sign out. stay here. dont deave me alone', error)
+        })
+    }
+    
     const links = (
         <>
             <li>
-                <Link>Item 1</Link>
+                <NavLink to='/' >Home</NavLink>
             </li>
-
             <li>
-                <Link>Item 3</Link>
+                <NavLink to='/' >Home</NavLink>
+            </li>
+            <li>
+                <NavLink to='/' >Home</NavLink>
             </li>
         </>
     );
@@ -27,19 +43,36 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-                <Link className="btn btn-ghost text-xl">daisyUI</Link>
+                <Link className="btn btn-ghost text-xl">
+                    <div className='flex items-center gap-1'>
+                        <img className="w-12 shadow-lg" src={logo} alt="" />
+                        <h3>Job Portal</h3>
+                    </div>
+                </Link>
             </div>
 
             {/* main nav  */}
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
-                    {links}
-                </ul>
+                <ul className="menu menu-horizontal px-1">{links}</ul>
             </div>
 
             <div className="navbar-end">
-                <Link to='/register'>Register</Link>
-                <Link className="btn">Sign In</Link>
+                {user ? (
+                    <>
+                        <button onClick={handleSignOut} className="btn">
+                            Sign Out
+                        </button>
+                    </>
+                ) : (
+                    <>
+                        <Link to="/register">
+                            <button className="btn">Register</button>
+                        </Link>
+                        <Link to="/signIn" className="btn">
+                            <button className="btn">Sign In</button>
+                        </Link>
+                    </>
+                )}
             </div>
         </div>
     );

@@ -1,49 +1,48 @@
-import Lottie from "lottie-react";
-import registerLottieData from '../assets/lottie/register.json'
 import { useContext, useState } from "react";
 import AuthContext from "../context/AuthContext";
+import loginLottieData from '../assets/lottie/login.json';
+import Lottie from "lottie-react";
 
 
-const Register = () => {
-    const [errorMessage, setErrorMessage] = useState('')
-    const { createUser } = useContext(AuthContext);
+const SignIn = () => {
+    const [errorMessage, setErrorMessage] = useState('');
+    const { signInUser } = useContext(AuthContext);
 
-    const handleRegister = e => {
-        e.preventDefault()
+    const handleSignIn = (e) => {
+        e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
+
         // reset error and status
         setErrorMessage('');
 
-        // password validation: 
+        // password validation:
         const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
         if (!passwordRegex.test(password)) {
             setErrorMessage('Password must be contains at least one uppercase, one digit and at least 6 characters or longer. ');
-            return
+            return;
         }
         //show password validation error
 
-
-        createUser(email, password)
+        signInUser(email, password) 
             .then(result => {
-                console.log(result.user)
-                
+            console.log('sign in', result.user)
             })
-            .catch(error => [
-            console.log(error.message)
-        ])
-
+            .catch(error => {
+            console.log(error)
+        })
     }
+
     return (
         <div className="hero bg-base-200 min-h-screen">
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className="text-center lg:text-left">
-                    <Lottie className="w-80 lg:w-96" animationData={registerLottieData} />
+                    <Lottie className="w-72 lg:w-80" animationData={loginLottieData} />
                 </div>
                 <div className="card bg-base-100 w-full max-w-lg shrink-0 shadow-2xl">
-                    <h1 className="text-4xl font-bold text-center mt-8">Register now!</h1>
-                    <form onSubmit={handleRegister} className="card-body">
+                    <h1 className="text-4xl font-bold text-center mt-8">SignIn now!</h1>
+                    <form onSubmit={handleSignIn} className="card-body">
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
@@ -62,7 +61,7 @@ const Register = () => {
                             </label>
                         </div>
                         <div className="form-control mt-6">
-                            <button className="btn btn-primary">Register</button>
+                            <button className="btn btn-primary">Sign In</button>
                         </div>
                         {errorMessage && <p className="text-red-600 text-center mt-3">{errorMessage}</p>}
                     </form>
@@ -72,4 +71,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default SignIn;
