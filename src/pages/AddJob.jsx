@@ -1,12 +1,13 @@
-import Swal from "sweetalert2";
-import useAuth from "../hooks/useAuth";
-
+import Swal from 'sweetalert2';
+import useAuth from '../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const AddJob = () => {
+    const { user } = useAuth();
+    const navigate = useNavigate();
 
-    const {user} = useAuth()
 
-    const handleAddJob = (e) => {
+    const handleAddJob = e => {
         e.preventDefault();
 
         const formData = new FormData(e.target);
@@ -16,12 +17,10 @@ const AddJob = () => {
         const { min, max, currency, ...newJob } = initialData;
 
         // console.log(newJob)
-        newJob.salaryRange = { min, max, currency }
-        newJob.requirements = newJob.requirements.split('\n')
-        newJob.responsibilities = newJob.responsibilities.split('\n')
-        console.log(newJob)
-
-
+        newJob.salaryRange = { min, max, currency };
+        newJob.requirements = newJob.requirements.split('\n');
+        newJob.responsibilities = newJob.responsibilities.split('\n');
+        console.log(newJob);
 
         fetch('http://localhost:5000/jobs', {
             method: 'POST',
@@ -33,19 +32,17 @@ const AddJob = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.insertedId) {
-                                    Swal.fire({
-                                        position: 'top-end',
-                                        icon: 'success',
-                                        title: 'Job has been added',
-                                        showConfirmButton: false,
-                                        timer: 1500
-                                    });
-                                    navigate('/myPostedJobs');
-                                }
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Job has been added',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    navigate('/myPostedJobs');
+                }
             });
-        
-
-    }
+    };
 
     return (
         <div>
@@ -73,9 +70,7 @@ const AddJob = () => {
                         <span className="label-text">Job Title</span>
                     </label>
                     <select className="select select-ghost w-full ">
-                        <option disabled>
-                            Pick a Job type
-                        </option>
+                        <option disabled>Pick a Job type</option>
                         <option>Full-time</option>
                         <option>Intern</option>
                         <option>Part-time</option>
@@ -87,14 +82,12 @@ const AddJob = () => {
                     <label className="label">
                         <span className="label-text">Job Field</span>
                     </label>
-                    <select className="select select-ghost w-full ">
-                        <option disabled selected>
-                            Pick a Job Field
-                        </option>
-                        <option>Engineering</option>
-                        <option>Marketing</option>
-                        <option>Finance</option>
-                        <option>Teaching</option>
+                    <select className="select select-ghost w-full " defaultValue={'engineering'}>
+                        <option disabled>Pick a Job Field</option>
+                        <option value={'engineering'}>Engineering</option>
+                        <option value={'marketing'}>Marketing</option>
+                        <option value={'finance'}>Finance</option>
+                        <option value={'teaching'}>Teaching</option>
                     </select>
                 </div>
 
@@ -116,9 +109,7 @@ const AddJob = () => {
                         {/* currency */}
                         <div className="form-control w-full">
                             <select name="currency" className="select select-ghost w-full ">
-                                <option disabled>
-                                    Currency
-                                </option>
+                                <option disabled>Currency</option>
                                 <option>BDT</option>
                                 <option>USD</option>
                                 <option>INR</option>
