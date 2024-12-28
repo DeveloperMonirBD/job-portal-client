@@ -1,17 +1,15 @@
-import logo from '../../assets/logo.png'
-const Footer = () => {
+import React from 'react';
+import logo from '../../assets/jobs-logo.png'
 
+const Footer = () => {
     return (
         <footer className="footer bg-base-200 text-base-content p-10">
             <aside>
-                <div className="flex items-center gap-1">
-                    <img className="w-16 shadow-lg" src={logo} alt="" />
-                    <h3>Job Portal</h3>
-                </div>
+                <img src={logo} alt="" />
                 <p>
-                    Job Portal Industries Ltd.
+                    Job Portal Ltd.
                     <br />
-                    Providing reliable job since 2024
+                    Providing reliable job since 1992
                 </p>
             </aside>
             <nav>

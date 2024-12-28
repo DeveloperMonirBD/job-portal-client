@@ -1,16 +1,16 @@
-/* eslint-disable no-unused-vars */
-import { Link, useLoaderData } from "react-router-dom";
+import React from 'react';
+import { Link, useLoaderData } from 'react-router-dom';
 
 const JobDetails = () => {
-    const { _id, title, company_logo, company, requirements, description, location, salaryRange, category, deadline } = useLoaderData();
-    
+    const { _id, title, company, deadline } = useLoaderData();
+
     return (
-        <div className="m-10">
-            <h2 className="text-3xl">Job Details for {title}</h2>
-            <p>Apply for: {company}</p>
-            <p>Dedline: {deadline}</p>
+        <div className='m-10'>
+            <h2 className='text-3xl'>job details for {title}</h2>
+            <p>apply for: {company}</p>
+            <p>deadline: {deadline}</p>
             <Link to={`/jobApply/${_id}`}>
-                <button className="btn btn-primary mt-4">Apply Now</button>
+                <button className='btn btn-primary'>Apply Now</button>
             </Link>
         </div>
     );

@@ -1,11 +1,12 @@
-import Banner from "./Banner";
-import HotJobs from "./HotJobs";
+import React from 'react';
+import Banner from './Banner';
+import HotJobs from './HotJobs';
 
 const Home = () => {
     return (
         <div>
-            <Banner />
-            <HotJobs />
+            <Banner></Banner>
+            <HotJobs></HotJobs>
         </div>
     );
 };
